@@ -17,7 +17,7 @@ function Home({ setVotes }) {
   return (
     <Container className="d-flex flex-column align-items-center justify-content-center min-vh-100">
     <h1 className="mb-4">¿Cómo fue tu experiencia?</h1>
-    <Row className="g-3">
+    <Row className="g-3 text-center">
       <Col>
         <Button 
           variant="success" 

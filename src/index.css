@@ -1,9 +1,14 @@
+* {
+  background-color: black;
+  color: white;
+}
+
 .rounded-button {
   border-radius: 50% !important;  /* Hace que los botones sean perfectamente redondos */
   width: 220px !important;        /* Tamaño del botón, puedes ajustar este valor */
   height: 220px !important;       /* Asegura que el alto y el ancho sean iguales */
   padding: 0;          /* Elimina el padding interno */
-  font-size: 16px;     /* Ajusta el tamaño de la fuente */
+  font-size: 20px !important;     /* Ajusta el tamaño de la fuente */
   display: flex;
   justify-content: center;
   align-items: center;
