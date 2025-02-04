@@ -16,19 +16,40 @@ function Home({ setVotes }) {
 
   return (
     <Container className="d-flex flex-column align-items-center justify-content-center min-vh-100">
-      <h1 className="mb-4">¿Cómo fue tu experiencia?</h1>
-      <Row className="g-3">
-        <Col>
-          <Button variant="success" size="lg" onClick={() => handleVote("satisfied")}>A gusto</Button>
-        </Col>
-        <Col>
-          <Button variant="warning" size="lg" onClick={() => handleVote("neutral")}>Neutral</Button>
-        </Col>
-        <Col>
-          <Button variant="danger" size="lg" onClick={() => handleVote("unsatisfied")}>Insatisfecho</Button>
-        </Col>
-      </Row>
-    </Container>
+    <h1 className="mb-4">¿Cómo fue tu experiencia?</h1>
+    <Row className="g-3">
+      <Col>
+        <Button 
+          variant="success" 
+          size="lg" 
+          className="rounded-button" 
+          onClick={() => handleVote("satisfied")}
+        >
+          A gusto
+        </Button>
+      </Col>
+      <Col>
+        <Button 
+          variant="warning" 
+          size="lg" 
+          className="rounded-button" 
+          onClick={() => handleVote("neutral")}
+        >
+          Neutral
+        </Button>
+      </Col>
+      <Col>
+        <Button 
+          variant="danger" 
+          size="lg" 
+          className="rounded-button" 
+          onClick={() => handleVote("unsatisfied")}
+        >
+          Insatisfecho
+        </Button>
+      </Col>
+    </Row>
+  </Container>
   );
 }
 
@@ -64,6 +85,7 @@ function Admin({ votes }) {
 
 function App() {
   const [votes, setVotes] = useState({ satisfied: 0, neutral: 0, unsatisfied: 0 });
+  console.log("🚀 ~ App ~ votes:", votes)
 
   return (
     <Router>
