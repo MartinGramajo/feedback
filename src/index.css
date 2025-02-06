@@ -1,7 +1,15 @@
-/* * {
-  background-color: black;
-  color: white;
-} */
+
+
+.logo{
+  width: 300px;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+};
+
+.texto-titulo{
+  font-size: 32px !important;
+  font-weight: bold !important;
+}
 
 .rounded-button {
   border-radius: 100% !important; /* Hace que los botones sean perfectamente redondos */
@@ -96,7 +104,7 @@
 }
 
 .texto-botones {
-  font-size: 18px !important;
+  font-size: 20px !important;
   font-weight: bold !important;
   text-align: center;
 }
