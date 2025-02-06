@@ -4,16 +4,99 @@
 }
 
 .rounded-button {
-  border-radius: 50% !important; /* Hace que los botones sean perfectamente redondos */
-  border-color: aliceblue !important;
-  border-width: 5px !important;
-  width: 220px !important; /* Tamaño del botón, puedes ajustar este valor */
-  height: 220px !important; /* Asegura que el alto y el ancho sean iguales */
+  border-radius: 100% !important; /* Hace que los botones sean perfectamente redondos */
+  width: 200px !important; /* Tamaño del botón, puedes ajustar este valor */
+  height: 200px !important; /* Asegura que el alto y el ancho sean iguales */
   padding: 0; /* Elimina el padding interno */
-  font-size: 32px !important; /* Ajusta el tamaño de la fuente */
+  font-size: 25px !important; /* Ajusta el tamaño de la fuente */
   font-weight: bold !important;
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center; /* Centra el texto */
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+@media (max-width: 1400px) {
+  .rounded-button {
+    border-radius: 100% !important; /* Hace que los botones sean perfectamente redondos */  
+    width: 200px !important; /* Tamaño del botón, puedes ajustar este valor */
+    height: 200px !important; /* Asegura que el alto y el ancho sean iguales */
+    padding: 0; /* Elimina el padding interno */
+    font-size: 25px !important; /* Ajusta el tamaño de la fuente */
+    font-weight: bold !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center; /* Centra el texto */
+    margin-left: 10px;
+    margin-right: 10px;
+  }}
+
+  @media (max-width: 1100px) {
+    .rounded-button {
+      border-radius: 100% !important; /* Hace que los botones sean perfectamente redondos */  
+      width: 180px !important; /* Tamaño del botón, puedes ajustar este valor */
+      height: 180px !important; /* Asegura que el alto y el ancho sean iguales */
+      padding: 0; /* Elimina el padding interno */
+      font-size: 25px !important; /* Ajusta el tamaño de la fuente */
+      font-weight: bold !important;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center; /* Centra el texto */
+      margin-left: 20px;
+      margin-right: 20px;
+    }}
+  
+    
+  @media (max-width: 600px) {
+    .rounded-button {
+      border-radius: 100% !important; /* Hace que los botones sean perfectamente redondos */  
+      width: 100px !important; /* Tamaño del botón, puedes ajustar este valor */
+      height: 100px !important; /* Asegura que el alto y el ancho sean iguales */
+      padding: 0; /* Elimina el padding interno */
+      font-size: 25px !important; /* Ajusta el tamaño de la fuente */
+      font-weight: bold !important;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center; /* Centra el texto */
+      margin-left: 20px;
+      margin-right: 20px;
+    }}
+
+    @media (max-width: 400px) {
+      .rounded-button {
+        border-radius: 100% !important; /* Hace que los botones sean perfectamente redondos */  
+        width: 50px !important; /* Tamaño del botón, puedes ajustar este valor */
+        height: 50px !important; /* Asegura que el alto y el ancho sean iguales */
+        padding: 0; /* Elimina el padding interno */
+        font-size: 25px !important; /* Ajusta el tamaño de la fuente */
+        font-weight: bold !important;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center; /* Centra el texto */
+        margin-left: 10px;
+        margin-right: 10px;
+      }}
+
+.satisfied-color{
+  background-color:  #61bb49;
+}
+
+.neutral-color{
+  background-color: #c38423;
+}
+
+.dissatisfied-color{
+  background-color: #ff4141;
+}
+
+.texto-botones {
+  font-size: 18px !important;
+  font-weight: bold !important;
+  text-align: center;
 }
