@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Admin = () => {
   const API_URL = "http://localhost:4000/api/votos";
   const [votes, setVotes] = useState(null);
-  const [loading, setLoading] = useState(false);
+
 
   useEffect(() => {
     const fetchVotes = async () => {
