@@ -3,6 +3,7 @@ import satisfecho from './assets/feliz.png';
 import neutral from "./assets/neutral.png";
 import insatisfecho from "./assets/enojado.png";
 import { Image } from "react-bootstrap";
+import Swal from "sweetalert2";
 
 const Home = () => {
   const API_URL = "http://localhost:4000/api/votos";
@@ -34,8 +35,11 @@ const Home = () => {
       if (!response.ok) throw new Error("Error al votar");
 
       const data = await response.json();
-      alert("Gracias por su votación");
-
+      Swal.fire({
+        title: "Gracias por su votación!",
+        icon: "success",
+        draggable: true
+      });
       // Volver a cargar los votos después de votar
       setVotes(data.votes);
     } catch (error) {
