@@ -1,10 +1,13 @@
 import { useEffect, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { Image } from 'react-bootstrap';
+import logo from '../assets/logo.png';
 
 const Admin = () => {
-  const API_URL = "http://localhost:4000/api/votos";
-  const [votes, setVotes] = useState(null);
-
+  // Se usa la query parameter para obtener el histórico semanal
+  const API_URL = "http://localhost:4000/api/votos?week=1";
+  // Inicializamos el estado con un array vacío
+  const [votes, setVotes] = useState([]);
 
   useEffect(() => {
     const fetchVotes = async () => {
@@ -22,34 +25,36 @@ const Admin = () => {
 
   return (
     <div className="container mt-4">
-      <h1 className="mb-4 text-center">Encuesta de Satisfacción</h1>
-      {votes ? (
+      <div className="text-center">
+        <Image className="logo" src={logo} alt="logo CEO" fluid />
+      </div>
+
+      <h1 className="mb-4 text-center">Registro de Votos - Semana Actual</h1>
+      {votes.length > 0 ? (
         <div className="table-responsive">
           <table className="table table-bordered table-striped">
             <thead className="thead-dark">
               <tr>
-                <th>Estado</th>
-                <th>Cantidad de Votos</th>
+                <th>Fecha</th>
+                <th>Satisfecho</th>
+                <th>Neutral</th>
+                <th>Insatisfecho</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>Satisfecho</td>
-                <td>{votes.satisfied}</td>
-              </tr>
-              <tr>
-                <td>Neutral</td>
-                <td>{votes.neutral}</td>
-              </tr>
-              <tr>
-                <td>Insatisfecho</td>
-                <td>{votes.unsatisfied}</td>
-              </tr>
+              {votes.map((vote) => (
+                <tr key={vote._id}>
+                  <td>{new Date(vote.date).toLocaleDateString()}</td>
+                  <td>{vote.satisfied}</td>
+                  <td>{vote.neutral}</td>
+                  <td>{vote.unsatisfied}</td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
       ) : (
-        <p>Cargando votos...</p>
+        <p>No se encontraron votos o se están cargando...</p>
       )}
     </div>
   );
