@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Image } from 'react-bootstrap';
+import { Button, Image } from 'react-bootstrap';
 import logo from '../assets/logo.png';
 import satisfecho from '../assets/felizMini.png';
 import neutral from '../assets/neutralMini.png';
 import insatisfecho from '../assets/enojadoMini.png';
 import calendario from '../assets/calendario.png';
+import { useNavigate } from 'react-router-dom';
 
 const Admin = () => {
   // Se usa la query parameter para obtener el histórico semanal
@@ -27,8 +28,22 @@ const Admin = () => {
     fetchVotes();
   }, []);
 
+  const navigate = useNavigate();
+
+  // Función para cerrar sesión: remueve el flag de autenticación y redirige al login.
+  const handleLogout = () => {
+    localStorage.removeItem('auth');
+    navigate('/');
+  }
+
   return (
     <div className="container mt-4">
+   <div className="d-flex justify-content-end pt-4">
+        <Button variant="outline-success" onClick={handleLogout}>
+          Cerrar session
+        </Button> 
+      </div>
+
       <div className="text-center">
         <Image className="logo" src={logo} alt="logo CEO" fluid />
       </div>

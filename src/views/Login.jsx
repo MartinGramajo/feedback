@@ -1,13 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import {
-  Container,
-  Button,
-  Form,
-  Card,
-  Alert,
-  Image,
-} from "react-bootstrap";
+import { Container, Button, Form, Card, Alert, Image } from "react-bootstrap";
 import logo from "../assets/logo.png";
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -21,6 +14,7 @@ const Login = () => {
     e.preventDefault();
     // Credenciales hardcodeadas: usuario: admin, contraseña: admin123
     if (username === "admin" && password === "junin851") {
+      localStorage.setItem("auth", "true"); // Guardar autenticación en localStorage
       navigate("/admin");
     } else {
       setError("Credenciales incorrectas.");
@@ -30,7 +24,7 @@ const Login = () => {
   return (
     <Container className="d-flex flex-column align-items-center justify-content-center min-vh-100">
       <Card className="p-4" style={{ width: "400px" }}>
-        <div className="text-center">
+        <div className="text-center mb-2">
           <Image className="logo" src={logo} alt="logo CEO" fluid />
         </div>
         {error && <Alert variant="danger">{error}</Alert>}
