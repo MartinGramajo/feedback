@@ -3,13 +3,21 @@ import satisfecho from "../assets/feliz.png";
 import neutral from "../assets/neutral.png";
 import insatisfecho from "../assets/enojado.png";
 import logo from "../assets/logo.png";
-import { Image } from "react-bootstrap";
+import adminIcon from "../assets/admin.png";
+import { Button, Image } from "react-bootstrap";
 import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
   const API_URL = "http://localhost:4000/api/votos";
-  const [votes, setVotes] = useState(null);
+  const [votes, setVotes] = useState([]);
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+
+  const navegarAdmin = ()=>{
+    navigate("/login");
+  }
+
 
   useEffect(() => {
     const fetchVotes = async () => {
@@ -51,12 +59,17 @@ const Home = () => {
   };
 
   return (
-    <div className="container text-center">
-      <div>
+    <div className="container">
+      <div className="d-flex justify-content-end pt-4">
+        <Button variant="outline-success" onClick={navegarAdmin}>
+          Login  <Image src={adminIcon} alt="admin icono" fluid />
+        </Button> 
+      </div>
+      <div className="text-center">
         <Image className="logo" src={logo} alt="logo CEO" fluid />
       </div>
 
-      <div className="pt-2">
+      <div className="pt-2 text-center">
         <h2 className="texto-titulo">¿Cómo fue tu experiencia ?</h2>
         <h6>Seleccióna una opción para votar.</h6>
       </div>
