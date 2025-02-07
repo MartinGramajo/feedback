@@ -9,7 +9,7 @@ import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 
 const Home = () => {
-  const API_URL = "http://localhost:4000/api/votos";
+  const API_URL = "https://feedbackend-bay.vercel.app/api/votos";
   const [votes, setVotes] = useState([]);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
