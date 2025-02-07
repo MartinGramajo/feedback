@@ -1,11 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   Container,
   Button,
   Form,
   Card,
-  Spinner,
   Alert,
   Image,
 } from "react-bootstrap";
