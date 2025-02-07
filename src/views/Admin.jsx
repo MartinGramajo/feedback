@@ -113,8 +113,8 @@ const Admin = () => {
       )}
 
       <div className="text-center mt-3">
-        <Button variant="primary" onClick={generatePDF}>
-          Descargar PDF
+        <Button className='my-4 py-4' variant="outline-success" onClick={generatePDF}>
+          Descargar PDF para tener el registro semanal
         </Button>
       </div>
     </div>
