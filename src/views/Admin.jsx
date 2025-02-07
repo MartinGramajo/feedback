@@ -2,6 +2,10 @@ import { useEffect, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Image } from 'react-bootstrap';
 import logo from '../assets/logo.png';
+import satisfecho from '../assets/felizMini.png';
+import neutral from '../assets/neutralMini.png';
+import insatisfecho from '../assets/enojadoMini.png';
+import calendario from '../assets/calendario.png';
 
 const Admin = () => {
   // Se usa la query parameter para obtener el histórico semanal
@@ -35,10 +39,10 @@ const Admin = () => {
           <table className="table table-bordered table-striped">
             <thead className="thead-dark">
               <tr>
-                <th>Fecha</th>
-                <th>Satisfecho</th>
-                <th>Neutral</th>
-                <th>Insatisfecho</th>
+                <th><Image className='me-1' src={calendario} alt="satifescho icono" fluid /> <span className='mt-1'> Fecha</span> </th>
+                <th><Image className='me-1' src={satisfecho} alt="satifescho icono" fluid /> <span className='mt-1'>Satisfecho</span> </th>
+                <th><Image className='me-1' src={neutral} alt="satifescho icono" fluid /> <span className='mt-1'>Neutral</span> </th>
+                <th><Image className='me-1' src={insatisfecho} alt="satifescho icono" fluid /> <span className='mt-1'>Insatisfecho</span></th>
               </tr>
             </thead>
             <tbody>
