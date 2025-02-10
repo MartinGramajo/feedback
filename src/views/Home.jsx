@@ -24,7 +24,7 @@ const Home = () => {
       try {
         const response = await fetch(API_URL);
         const data = await response.json();
-        setVotes(data);
+        setVotes((prevVotes) => [...prevVotes, data]); 
       } catch (error) {
         console.error("Error al obtener los votos", error);
       }
