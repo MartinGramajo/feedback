@@ -11,9 +11,7 @@
 // import 'jspdf-autotable';
 
 // const Admin = () => {
-//   // URL para obtener el registro semanal (para la tabla en pantalla)
-//   const API_URL = "https://feedbackend-bay.vercel.app/api/votos?week=1";
-//   // Inicializamos el estado con un array vacío para evitar errores
+//   const API_URL = "https://feedbackend-bay.vercel.app/api/votos?month=1";
 //   const [votes, setVotes] = useState([]);
 //   const [loading, setLoading] = useState(false);
 //   const navigate = useNavigate();
@@ -24,29 +22,38 @@
 //         setLoading(true);
 //         const response = await fetch(API_URL);
 //         const data = await response.json();
-//         setVotes(data);
+//         console.log("Datos recibidos:", data); // 👀 Verifica la estructura en consola
+        
+//         // Suponiendo que el objeto contiene los votos directamente
+//         const mappedVotes = [{
+//           _id: "unique_id",  // Puedes agregar un identificador único si es necesario
+//           date: new Date(data.createdAt).toLocaleDateString(), // Utilizando la fecha de creación del objeto
+//           satisfied: data.satisfied,
+//           neutral: data.neutral,
+//           unsatisfied: data.unsatisfied
+//         }];
+        
+//         setVotes(mappedVotes);
 //       } catch (error) {
 //         console.error("Error al obtener los votos", error);
 //       } finally {
 //         setLoading(false);
 //       }
 //     };
-
+  
 //     fetchVotes();
 //   }, []);
 
-//   // Función para cerrar sesión: remueve el flag de autenticación y redirige al login.
 //   const handleLogout = () => {
 //     localStorage.removeItem('auth');
 //     navigate('/');
 //   };
 
-//   // Función para generar y descargar el PDF con el registro semanal.
 //   const generatePDF = () => {
 //     const doc = new jsPDF();
-//     doc.text("Registro de Votos - Semana Actual", 10, 10);
+//     doc.text("Registro de Votos - Mes Actual", 10, 10);
 //     const body = votes.map(vote => [
-//       new Date(vote.date).toLocaleDateString(),
+//       vote.date,
 //       vote.satisfied,
 //       vote.neutral,
 //       vote.unsatisfied
@@ -70,7 +77,7 @@
 //         <Image className="logo" src={logo} alt="logo CEO" fluid />
 //       </div>
 
-//       <h1 className="mb-4 text-center">Registro de Votos - Semana Actual</h1>
+//       <h1 className="mb-4 text-center">Registro de Votos - Mes Actual</h1>
 //       {loading ? (
 //         <p>Cargando votos...</p>
 //       ) : votes && votes.length > 0 ? (
@@ -99,7 +106,7 @@
 //             <tbody>
 //               {votes.map((vote) => (
 //                 <tr key={vote._id}>
-//                   <td>{new Date(vote.date).toLocaleDateString()}</td>
+//                   <td>{vote.date}</td>
 //                   <td>{vote.satisfied}</td>
 //                   <td>{vote.neutral}</td>
 //                   <td>{vote.unsatisfied}</td>
@@ -114,7 +121,7 @@
 
 //       <div className="text-center mt-3">
 //         <Button className='my-4 py-4' variant="outline-success" onClick={generatePDF}>
-//           Descargar PDF para tener el registro semanal
+//           Descargar PDF para tener el registro mensual
 //         </Button>
 //       </div>
 //     </div>
@@ -122,6 +129,7 @@
 // };
 
 // export default Admin;
+
 
 import { useEffect, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -136,52 +144,77 @@ import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 
 const Admin = () => {
-  // URL para obtener el registro mensual (todos los documentos diarios desde el inicio del mes)
   const API_URL = "https://feedbackend-bay.vercel.app/api/votos?month=1";
-  // Inicializamos el estado con un array vacío para evitar errores
   const [votes, setVotes] = useState([]);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-
   useEffect(() => {
     const fetchVotes = async () => {
       try {
         setLoading(true);
         const response = await fetch(API_URL);
         const data = await response.json();
-        setVotes(data);
+        console.log("Datos recibidos:", data);
+  
+        // Limpiar los votos previos antes de asignar nuevos
+        setVotes([]);
+        if (data && data._id) {
+          const mappedVotes = [{
+            _id: data._id,
+            date: new Date(data.updatedAt).toLocaleDateString(),
+            satisfied: data.satisfied,
+            neutral: data.neutral,
+            unsatisfied: data.unsatisfied,
+          }];
+          setVotes(mappedVotes);
+        } else {
+          console.log("No se encontraron votos en la respuesta de la API");
+        }
       } catch (error) {
         console.error("Error al obtener los votos", error);
       } finally {
         setLoading(false);
       }
     };
-
+  
     fetchVotes();
-  }, []);
+  }, []);  // Este array vacío asegura que solo se ejecute una vez
+  
+  
+  
+  
 
-  // Función para cerrar sesión: remueve el flag de autenticación y redirige al login.
   const handleLogout = () => {
     localStorage.removeItem('auth');
     navigate('/');
   };
 
-  // Función para generar y descargar el PDF con el registro mensual.
   const generatePDF = () => {
     const doc = new jsPDF();
     doc.text("Registro de Votos - Mes Actual", 10, 10);
-    const body = votes.map(vote => [
-      new Date(vote.date).toLocaleDateString(),
-      vote.satisfied,
-      vote.neutral,
-      vote.unsatisfied
-    ]);
-    doc.autoTable({
-      head: [["Fecha", "Satisfecho", "Neutral", "Insatisfecho"]],
-      body: body,
-    });
-    doc.save("registro_votos.pdf");
+  
+    // Verifica si hay votos disponibles
+    if (votes && votes.length > 0) {
+      const body = votes.map(vote => [
+        vote.date,
+        vote.satisfied,
+        vote.neutral,
+        vote.unsatisfied
+      ]);
+  
+      // Crear la tabla en el PDF
+      doc.autoTable({
+        head: [["Fecha", "Satisfecho", "Neutral", "Insatisfecho"]],
+        body: body,
+      });
+  
+      // Descargar el PDF
+      doc.save("registro_votos.pdf");
+    } else {
+      console.log("No hay votos para generar el PDF");
+    }
   };
+  
 
   return (
     <div className="container mt-4">
@@ -195,7 +228,7 @@ const Admin = () => {
         <Image className="logo" src={logo} alt="logo CEO" fluid />
       </div>
 
-      <h1 className="mb-4 text-center">Registro de Votos - Mes Actual</h1>
+      <h1 className="mb-4 text-center">Registro del feedback</h1>
       {loading ? (
         <p>Cargando votos...</p>
       ) : votes && votes.length > 0 ? (
@@ -224,7 +257,7 @@ const Admin = () => {
             <tbody>
               {votes.map((vote) => (
                 <tr key={vote._id}>
-                  <td>{new Date(vote.date).toLocaleDateString()}</td>
+                  <td>{vote.date}</td>
                   <td>{vote.satisfied}</td>
                   <td>{vote.neutral}</td>
                   <td>{vote.unsatisfied}</td>
@@ -237,11 +270,11 @@ const Admin = () => {
         <p>No se encontraron votos o se están cargando...</p>
       )}
 
-      <div className="text-center mt-3">
+      {/* <div className="text-center mt-3">
         <Button className='my-4 py-4' variant="outline-success" onClick={generatePDF}>
           Descargar PDF para tener el registro mensual
         </Button>
-      </div>
+      </div> */}
     </div>
   );
 };
