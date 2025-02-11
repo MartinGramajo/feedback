@@ -148,28 +148,58 @@ const Admin = () => {
   const [votes, setVotes] = useState([]);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  // useEffect(() => {
+  //   const fetchVotes = async () => {
+  //     try {
+  //       setLoading(true);
+  //       const response = await fetch(API_URL);
+  //       const data = await response.json();
+  //       console.log("Datos recibidos:", data);
+  
+  //       // Limpiar los votos previos antes de asignar nuevos
+  //       setVotes([]);
+  //       if (data && data._id) {
+  //         const mappedVotes = [{
+  //           _id: data._id,
+  //           date: new Date(data.updatedAt).toLocaleDateString(),
+  //           satisfied: data.satisfied,
+  //           neutral: data.neutral,
+  //           unsatisfied: data.unsatisfied,
+  //         }];
+  //         setVotes(mappedVotes);
+  //       } else {
+  //         console.log("No se encontraron votos en la respuesta de la API");
+  //       }
+  //     } catch (error) {
+  //       console.error("Error al obtener los votos", error);
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   };
+  
+  //   fetchVotes();
+  // }, []);  
+  
   useEffect(() => {
     const fetchVotes = async () => {
       try {
         setLoading(true);
         const response = await fetch(API_URL);
         const data = await response.json();
-        console.log("Datos recibidos:", data);
   
-        // Limpiar los votos previos antes de asignar nuevos
-        setVotes([]);
-        if (data && data._id) {
-          const mappedVotes = [{
-            _id: data._id,
-            date: new Date(data.updatedAt).toLocaleDateString(),
-            satisfied: data.satisfied,
-            neutral: data.neutral,
-            unsatisfied: data.unsatisfied,
-          }];
-          setVotes(mappedVotes);
-        } else {
-          console.log("No se encontraron votos en la respuesta de la API");
-        }
+        const groupedVotes = data.reduce((acc, vote) => {
+          const key = `${vote.date}-${vote.userId}`;
+          if (!acc[key]) {
+            acc[key] = { ...vote };
+          } else {
+            acc[key].satisfied += vote.satisfied;
+            acc[key].neutral += vote.neutral;
+            acc[key].unsatisfied += vote.unsatisfied;
+          }
+          return acc;
+        }, {});
+  
+        setVotes(Object.values(groupedVotes));
       } catch (error) {
         console.error("Error al obtener los votos", error);
       } finally {
@@ -178,9 +208,7 @@ const Admin = () => {
     };
   
     fetchVotes();
-  }, []);  // Este array vacío asegura que solo se ejecute una vez
-  
-  
+  }, []);
   
   
 

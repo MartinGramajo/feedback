@@ -33,22 +33,50 @@ const Home = () => {
     fetchVotes();
   }, []);
 
+  // const handleVote = async (type) => {
+  //   try {
+  //     setLoading(true);
+  //     const response = await fetch(API_URL, {
+  //       method: "POST",
+  //       headers: { "Content-Type": "application/json" },
+  //       body: JSON.stringify({ type }),
+  //     });
+  //     if (!response.ok) throw new Error("Error al votar");
+
+  //     const data = await response.json();
+  //     Swal.fire({
+  //       title: "Gracias por su votación!",
+  //       icon: "success",
+  //       draggable: true,
+  //     });
+  //     // Volver a cargar los votos después de votar
+  //     setVotes(data.votes);
+  //   } catch (error) {
+  //     console.error("Error al enviar el voto", error);
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
+
   const handleVote = async (type) => {
     try {
       setLoading(true);
+      const userId = localStorage.getItem("userId") || "defaultUser"; // Cambia esto por el ID real del usuario
       const response = await fetch(API_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ type }),
+        body: JSON.stringify({ type, userId }),
       });
+  
       if (!response.ok) throw new Error("Error al votar");
-
+  
       const data = await response.json();
       Swal.fire({
         title: "Gracias por su votación!",
         icon: "success",
         draggable: true,
       });
+  
       // Volver a cargar los votos después de votar
       setVotes(data.votes);
     } catch (error) {
@@ -57,6 +85,7 @@ const Home = () => {
       setLoading(false);
     }
   };
+  
 
   return (
     <div className="container">
