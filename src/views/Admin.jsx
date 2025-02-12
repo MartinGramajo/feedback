@@ -148,38 +148,25 @@ const Admin = () => {
   const [votes, setVotes] = useState([]);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  // useEffect(() => {
-  //   const fetchVotes = async () => {
-  //     try {
-  //       setLoading(true);
-  //       const response = await fetch(API_URL);
-  //       const data = await response.json();
-  //       console.log("Datos recibidos:", data);
-  
-  //       // Limpiar los votos previos antes de asignar nuevos
-  //       setVotes([]);
-  //       if (data && data._id) {
-  //         const mappedVotes = [{
-  //           _id: data._id,
-  //           date: new Date(data.updatedAt).toLocaleDateString(),
-  //           satisfied: data.satisfied,
-  //           neutral: data.neutral,
-  //           unsatisfied: data.unsatisfied,
-  //         }];
-  //         setVotes(mappedVotes);
-  //       } else {
-  //         console.log("No se encontraron votos en la respuesta de la API");
-  //       }
-  //     } catch (error) {
-  //       console.error("Error al obtener los votos", error);
-  //     } finally {
-  //       setLoading(false);
-  //     }
-  //   };
-  
-  //   fetchVotes();
-  // }, []);  
-  
+
+
+  const usuarioEnLinea = JSON.parse(sessionStorage.getItem('usuarioLogueado')) || {};
+  const [usuarioActivo, setUsuarioActivo] = useState(usuarioEnLinea);
+ 
+
+  const navegarAdmin = ()=>{
+    navigate("/login");
+  }
+
+  const logout = () =>{
+    // limpiamos el stado y el sessionStorage
+    setUsuarioActivo({});
+    sessionStorage.clear('usuarioLogueado');
+    //redirecciona a la pagina principal
+    navigate('/');
+  }
+
+
   useEffect(() => {
     const fetchVotes = async () => {
       try {
@@ -247,7 +234,7 @@ const Admin = () => {
   return (
     <div className="container mt-4">
       <div className="d-flex justify-content-end pt-4">
-        <Button variant="outline-success" onClick={handleLogout}>
+        <Button variant="outline-success" onClick={logout}>
           Cerrar sesión
         </Button>
       </div>

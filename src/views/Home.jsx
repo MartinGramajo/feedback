@@ -19,6 +19,7 @@ const Home = () => {
   }
 
 
+
   useEffect(() => {
     const fetchVotes = async () => {
       try {
