@@ -253,7 +253,7 @@ const Admin = () => {
               <tr>
                 <th>
                   <Image className="me-1" src={calendario} alt="Calendario" fluid />
-                  <span className="mt-1"> Fecha</span>
+                  <span className="mt-1" > Fecha</span>
                 </th>
                 <th>
                   <Image className="me-1" src={satisfecho} alt="Satisfecho" fluid />
@@ -271,8 +271,8 @@ const Admin = () => {
             </thead>
             <tbody>
               {votes.map((vote) => (
-                <tr key={vote._id}>
-                  <td>{vote.date}</td>
+                <tr key={vote._id} style={{fontSize:"12px"}}>
+                  <td >{vote.date}</td>
                   <td>{vote.satisfied}</td>
                   <td>{vote.neutral}</td>
                   <td>{vote.unsatisfied}</td>
