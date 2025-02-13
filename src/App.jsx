@@ -16,7 +16,6 @@ const App = () => {
       <Router>
       <Routes>
         <Route path="/" element={<Home />} />
-        {/* <Route path="/admin" element={<Admin />} /> */}
         <Route path="/login" element={<Login setUsuarioActivo={setUsuarioActivo}></Login>} />
         <Route
           path="/admin/*"
