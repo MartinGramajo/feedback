@@ -71,18 +71,51 @@ const Admin = () => {
     navigate('/');
   };
 
+  // const generatePDF = () => {
+  //   const doc = new jsPDF();
+  //   doc.text("Registro de Votos - Mes Actual", 10, 10);
+  
+  //   // Verifica si hay votos disponibles
+  //   if (votes && votes.length > 0) {
+  //     const body = votes.map(vote => [
+  //       vote.date,
+  //       vote.satisfied,
+  //       vote.neutral,
+  //       vote.unsatisfied
+  //     ]);
+  
+  //     // Crear la tabla en el PDF
+  //     doc.autoTable({
+  //       head: [["Fecha", "Satisfecho", "Neutral", "Insatisfecho"]],
+  //       body: body,
+  //     });
+  
+  //     // Descargar el PDF
+  //     doc.save("registro_votos.pdf");
+  //   } else {
+  //     console.log("No hay votos para generar el PDF");
+  //   }
+  // };
+  
   const generatePDF = () => {
     const doc = new jsPDF();
     doc.text("Registro de Votos - Mes Actual", 10, 10);
   
-    // Verifica si hay votos disponibles
     if (votes && votes.length > 0) {
+      // Calcular totales
+      const totalSatisfechos = votes.reduce((acc, vote) => acc + vote.satisfied, 0);
+      const totalNeutrales = votes.reduce((acc, vote) => acc + vote.neutral, 0);
+      const totalInsatisfechos = votes.reduce((acc, vote) => acc + vote.unsatisfied, 0);
+  
       const body = votes.map(vote => [
         vote.date,
         vote.satisfied,
         vote.neutral,
         vote.unsatisfied
       ]);
+  
+      // Agregar fila de totales
+      body.push(["Total", totalSatisfechos, totalNeutrales, totalInsatisfechos]);
   
       // Crear la tabla en el PDF
       doc.autoTable({
@@ -96,7 +129,7 @@ const Admin = () => {
       console.log("No hay votos para generar el PDF");
     }
   };
-  
+
 
   return (
     <div className="container mt-4">
