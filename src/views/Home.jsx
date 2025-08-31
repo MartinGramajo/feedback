@@ -237,7 +237,7 @@ const Home = () => {
       </div>
 
       <div className="pt-4 text-center">
-        <h2 style={{ fontSize: "48px", marginBottom: "32px" }}>
+        <h2 style={{ fontSize: "32px", marginBottom: "32px", fontWeight: "bold" }}>
           ¿CÓMO FUE TU EXPERIENCIA EN CEO?
         </h2>
         <h3>Selecciona una opción para votar.</h3>
@@ -262,7 +262,7 @@ const Home = () => {
           >
             <Image src={neutral} fluid />
           </button>
-          <h1 className="texto-botones mt-3">NEUTRAL</h1>
+          <h1 className="texto-botones mt-3  ">NEUTRAL</h1>
         </div>
         <div>
           <button
@@ -281,8 +281,6 @@ const Home = () => {
 
 export default Home;
 
-/* ---- CSS para el loader de 3 puntos ---- */
-/* Podés ponerlo en tu archivo CSS global */
 <style>
 {`
 .dots-loader {
