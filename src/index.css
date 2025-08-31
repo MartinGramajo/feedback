@@ -1,13 +1,13 @@
 
 
 .logo{
-  width: 300px;
+  width: 400px;
   padding-top: 2rem;
   padding-bottom: 2rem;
 };
 
 .texto-titulo{
-  font-size: 32px !important;
+  font-size: 48px !important;
   font-weight: bold !important;
 }
 
@@ -96,7 +96,7 @@
 }
 
 .neutral-color{
-  background-color: #c38423;
+  background-color: #f6ff00 !important;
 }
 
 .dissatisfied-color{
@@ -125,7 +125,7 @@ body {
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  background: rgba(255, 215, 0, 0.8);
+  background: rgba(255, 217, 0, 0.978);
   box-shadow: 0 0 15px rgba(255, 215, 0, 1);
   top: var(--cursor-y, 50%);
   left: var(--cursor-x, 50%);
@@ -143,4 +143,31 @@ body {
     transform: scale(3) translate(-50%, -50%);
     opacity: 0;
   }
+}
+
+
+.dots-loader {
+  display: flex;
+  gap: 8px;
+}
+
+.dots-loader span {
+  width: 12px;
+  height: 12px;
+  background: #28a745;
+  border-radius: 50%;
+  animation: bounce 0.6s infinite alternate;
+}
+
+.dots-loader span:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.dots-loader span:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes bounce {
+  from { transform: translateY(0); opacity: 0.6; }
+  to { transform: translateY(-12px); opacity: 1; }
 }

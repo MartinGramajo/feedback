@@ -21,10 +21,6 @@ const Admin = () => {
   const [usuarioActivo, setUsuarioActivo] = useState(usuarioEnLinea);
  
 
-  const navegarAdmin = ()=>{
-    navigate("/login");
-  }
-
   const logout = () =>{
     // limpiamos el stado y el sessionStorage
     setUsuarioActivo({});
@@ -63,40 +59,7 @@ const Admin = () => {
   
     fetchVotes();
   }, []);
-  
-  
-
-  const handleLogout = () => {
-    localStorage.removeItem('auth');
-    navigate('/');
-  };
-
-  // const generatePDF = () => {
-  //   const doc = new jsPDF();
-  //   doc.text("Registro de Votos - Mes Actual", 10, 10);
-  
-  //   // Verifica si hay votos disponibles
-  //   if (votes && votes.length > 0) {
-  //     const body = votes.map(vote => [
-  //       vote.date,
-  //       vote.satisfied,
-  //       vote.neutral,
-  //       vote.unsatisfied
-  //     ]);
-  
-  //     // Crear la tabla en el PDF
-  //     doc.autoTable({
-  //       head: [["Fecha", "Satisfecho", "Neutral", "Insatisfecho"]],
-  //       body: body,
-  //     });
-  
-  //     // Descargar el PDF
-  //     doc.save("registro_votos.pdf");
-  //   } else {
-  //     console.log("No hay votos para generar el PDF");
-  //   }
-  // };
-  
+   
   const generatePDF = () => {
     const doc = new jsPDF();
     doc.text("Registro de Votos - Mes Actual", 10, 10);
