@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 
 const Home = () => {
   const API_URL = "https://feedbackend-bay.vercel.app/api/votos";
+ 
   const [votes, setVotes] = useState([]);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -40,7 +41,10 @@ const Home = () => {
   useEffect(() => {
     setTimeout(() => {
       if (botoneraRef.current) {
-        botoneraRef.current.scrollIntoView({ behavior: "smooth", block: "center" });
+        botoneraRef.current.scrollIntoView({
+          behavior: "smooth",
+          block: "center",
+        });
       }
     }, 800); // pequeño delay para asegurar que todo renderice
   }, []);
@@ -48,7 +52,9 @@ const Home = () => {
   // 🔄 Recarga forzada cada 20 minutos (podés subirlo a 60 para menor consumo)
   useEffect(() => {
     const interval = setInterval(() => {
-      console.log("🔁 Recargando automáticamente la app para mantenerla activa...");
+      console.log(
+        "🔁 Recargando automáticamente la app para mantenerla activa..."
+      );
       window.location.reload();
     }, 20 * 60 * 1000); // 20 minutos
 
@@ -56,6 +62,7 @@ const Home = () => {
   }, []);
 
   const handleVote = async (type) => {
+    const now = new Date();
     try {
       setLoading(true);
       const userId = localStorage.getItem("userId") || "defaultUser";
@@ -63,7 +70,11 @@ const Home = () => {
       const response = await fetch(API_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ type, userId }),
+        body: JSON.stringify({
+          type,
+          userId,
+          createdAt: now.toISOString(), // 👈 FECHA + HORA
+        }),
       });
 
       if (!response.ok) throw new Error("Error al votar");
@@ -75,6 +86,9 @@ const Home = () => {
         text: "Gracias por su votación!",
         icon: "success",
         confirmButtonColor: "#28a745",
+        timer: 2500, // ⏱️ se cierra solo en 2.5 segundos
+        timerProgressBar: true,
+        showConfirmButton: false, // ❌ no muestra botón
       });
 
       setVotes(data.votes);
@@ -131,14 +145,19 @@ const Home = () => {
       </div>
 
       <div className="pt-4 text-center">
-        <h2 style={{ fontSize: "32px", marginBottom: "32px", fontWeight: "bold" }}>
+        <h2
+          style={{ fontSize: "32px", marginBottom: "32px", fontWeight: "bold" }}
+        >
           ¿CÓMO FUE TU EXPERIENCIA EN CEO?
         </h2>
         <h3>Selecciona una opción para votar.</h3>
       </div>
 
       {/* 👇 Ref asignada a la sección de la botonera */}
-      <section ref={botoneraRef} className="d-flex justify-content-center container py-4">
+      <section
+        ref={botoneraRef}
+        className="d-flex justify-content-center container py-4"
+      >
         <div>
           <button
             className="rounded-button satisfied-color"
@@ -177,7 +196,7 @@ const Home = () => {
 export default Home;
 
 <style>
-{`
+  {`
 .dots-loader {
   display: flex;
   gap: 8px;
@@ -204,4 +223,4 @@ export default Home;
   to { transform: translateY(-12px); opacity: 1; }
 }
 `}
-</style>
+</style>;
